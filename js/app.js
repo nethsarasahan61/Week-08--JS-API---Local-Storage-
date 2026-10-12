@@ -7,25 +7,33 @@ function getStudents(){
     }
     return students;
 }
+btnLoadtbOnAction()
 function btnAddOnAction(){
     let students=getStudents()  
-    let id=document.getElementById("txtid").value
-    let name=document.getElementById("txtname").value
-    let age=document.getElementById("txtage").value
-    let address=document.getElementById("txtaddress").value
-    students.push({
-        id:id,
-        name:name,
-        age:age,
-        address:address
-    })
-    localStorage.setItem("StudentObject",JSON.stringify(students))
+    if(document.getElementById("txtid").value==""){
+        alert("ID Cannot be empty!")
+    }else if(document.getElementById("txtname").value==""){
+        alert("Name Cannot be empty!")
+    }else if(document.getElementById("txtage").value==""){
+        alert("Age Cannot be empty!")
+    }else if(document.getElementById("txtaddress").value==""){
+        alert("Address Cannot be empty!")
+    }else{
+        students.push({
+            id:document.getElementById("txtid").value,
+            name:document.getElementById("txtname").value,
+            age:document.getElementById("txtage").value,
+            address:document.getElementById("txtaddress").value
+        })
+        localStorage.setItem("StudentObject",JSON.stringify(students))
 
-    document.getElementById("txtid").value=""
-    document.getElementById("txtname").value=""
-    document.getElementById("txtage").value=""
-    document.getElementById("txtaddress").value=""
-    alert("Added Customer!")    
+        document.getElementById("txtid").value=""
+        document.getElementById("txtname").value=""
+        document.getElementById("txtage").value=""
+        document.getElementById("txtaddress").value=""
+        btnLoadtbOnAction()
+        alert("Added Customer!")    
+    }
 }
 function btnSearchOnAction(){
     let students=getStudents()    
@@ -49,8 +57,8 @@ function btnDeleteOnAction(){
     let students=getStudents()
     let ST=students.filter(st=>st.id!=document.getElementById("txtid").value)
     if(ST.length!=0 || students.length!=0){
-        alert("Deleted Customer!")
-        emptyFields();
+        alert("Deleted Customer!")        
+        emptyFields();        
     }else{
         alert("No Customer to Delete!")
         emptyFields();
@@ -104,12 +112,7 @@ function btnLoadtbOnAction(){
                     <td>${st.address}</td>
                 </tr>
             `
-        });    
-        alert("Loaded Customer!")
-        emptyFields();
-    }else{
-        alert("No Customer to Load!")
-        emptyFields();
+        });            
     }
 }
 function emptyFields(){
