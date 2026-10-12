@@ -10,6 +10,12 @@ function getStudents(){
 btnLoadtbOnAction()
 function btnAddOnAction(){
     let students=getStudents()  
+    let found=false;
+    students.find(st => {
+        if(st.id==document.getElementById("txtid").value){
+            found=true;            
+        }
+    });
     if(document.getElementById("txtid").value==""){
         alert("ID Cannot be empty!")
     }else if(document.getElementById("txtname").value==""){
@@ -18,6 +24,8 @@ function btnAddOnAction(){
         alert("Age Cannot be empty!")
     }else if(document.getElementById("txtaddress").value==""){
         alert("Address Cannot be empty!")
+    }else if(found){
+        alert("Customer Already Exsist!")
     }else{
         students.push({
             id:document.getElementById("txtid").value,
@@ -30,9 +38,9 @@ function btnAddOnAction(){
         document.getElementById("txtid").value=""
         document.getElementById("txtname").value=""
         document.getElementById("txtage").value=""
-        document.getElementById("txtaddress").value=""
-        btnLoadtbOnAction()
-        alert("Added Customer!")    
+        document.getElementById("txtaddress").value=""        
+        alert("Added Customer!")
+        btnLoadtbOnAction()    
     }
 }
 function btnSearchOnAction(){
@@ -59,11 +67,12 @@ function btnDeleteOnAction(){
     if(ST.length!=0 || students.length!=0){
         alert("Deleted Customer!")        
         emptyFields();        
+        localStorage.setItem("StudentObject",JSON.stringify(ST))
+        btnLoadtbOnAction()
     }else{
         alert("No Customer to Delete!")
         emptyFields();
-    }
-    localStorage.setItem("StudentObject",JSON.stringify(ST))    
+    }    
 }
 function btnUpdateOnAction(){
     let students=getStudents()    
@@ -79,10 +88,11 @@ function btnUpdateOnAction(){
     if(ob){
         alert("Updated Customer!")
         emptyFields();
+        btnLoadtbOnAction()
     }else{
         alert("No Customer to update!")
         emptyFields();
-    }        
+    }            
 }
 function btnClearOnAction(){
     localStorage.clear()
@@ -91,9 +101,8 @@ function btnClearOnAction(){
 }
 function btnLoadtbOnAction(){
     let students=getStudents()
-    if(students.length!=0){
-        let tbl=document.getElementById("custb")
-        tbl.innerHTML=`
+    let tbl=document.getElementById("custb")
+    tbl.innerHTML=`
                 <table border="1" id="custb">
                 <tr>
                     <th>ID</th>
@@ -103,6 +112,7 @@ function btnLoadtbOnAction(){
                 </tr>
             </table>
             `
+    if(students.length!=0){        
         students.forEach(st => {
             tbl.innerHTML+=`
                 <tr>
@@ -135,3 +145,9 @@ function clear(){
         </table>
         `
 }
+const baseUrl = "http://api.weatherapi.com/v1"
+const key = "6aa42a34e3794aee8cc105256261210"
+const city = "Moratuwa"
+fetch(`${baseUrl}/current.json?key=${key}&q=${city}`).then(res=>res.json()).then(data=>{
+    console.log(data);    
+})
