@@ -7,7 +7,31 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1 class="main-ttl">Hellow World</h1>
+    <h1 class="main-ttl">Customer Form</h1>
+    <center>
+        <input type="text" placeholder="Enter Your Id" id="txtid">
+        <input type="text" placeholder="Enter Your Name" id="txtname">
+        <input type="text" placeholder="Enter Your Age" id="txtage">
+        <input type="text" placeholder="Enter Your Address" id="txtaddress">
+        <hr>
+        <input type="button" value="Add Customer" onclick="btnAddOnAction()">
+        <input type="button" value="Search By ID" onclick="btnSearchOnAction()">
+        <input type="button" value="Delete By ID" onclick="btnDeleteOnAction()">
+        <input type="button" value="Update By ID" onclick="btnUpdateOnAction()">
+        <input type="button" value="Clear Storage" onclick="btnClearOnAction()">
+        <input type="button" value="Load Table" onclick="btnLoadtbOnAction()">
+
+        <br>
+        <br>
+        <table border="1" id="custb">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+            </tr>
+        </table>
+    </center>
     <script src="js/app.js"></script>
 </body>
 </html>
