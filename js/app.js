@@ -1,4 +1,9 @@
 console.log("Hello JS!");
+localStorage.clear()
+
+// localStorage.setItem("name","Santha")
+// localStorage.removeItem("name")
+
 let student = [{name:"Sahan",age:18,address:"Moratuwa"}]
 localStorage.setItem("StudentObjectArray",JSON.stringify(student))
 
